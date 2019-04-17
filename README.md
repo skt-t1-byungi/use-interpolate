@@ -1,7 +1,7 @@
 # use-interpolate 📃
 > A react hook that interpolates html(text) into a component.
 
-[![npm](https://flat.badgen.net/npm/v/use-interpolate)](https://www.npmjs.com/package/use-waiterinterpolate)
+[![npm](https://flat.badgen.net/npm/v/use-interpolate)](https://www.npmjs.com/package/use-interpolate)
 [![typescript](https://flat.badgen.net/badge/typescript/3.4.3/blue)](https://www.typescriptlang.org)
 [![license](https://flat.badgen.net/github/license/skt-t1-byungi/use-interpolate)](https://github.com/skt-t1-byungi/use-interpolate/blob/master/LICENSE)
 
