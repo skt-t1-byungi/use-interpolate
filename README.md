@@ -68,6 +68,7 @@ output:
 Default value is `true`. If strict is false, the result is returned without error.
 ```jsx
 const useInterpolate = createHook({ strict: false })
+
 function App(){
     const vnode = useInterpolate('<a>Invalid<b>', {a: <p/>, b: <br/>}) // no error.
     /* ... */
