@@ -1,14 +1,15 @@
 import { ReactNode, useMemo, isValidElement, createElement, cloneElement, Fragment } from 'react'
-import tagNameParser = require('tag-name-parser')
+import parser = require('tag-name-parser')
 
-type TagNode = ReturnType<typeof tagNameParser>[number]
+type TagNode = ReturnType<typeof parser>[number]
 type ReactElements = Record<string, ReactNode | ((children?: ReactNode) => ReactNode)>
 
 export const useInterpolate = createHook()
+
 export default useInterpolate
 
-export function createHook ({ tag }: {tag?: [string, string]} = {}) {
-    const parse = tag ? (text: string) => tagNameParser(text, { tag }) : tagNameParser
+export function createHook (opts: {strict?: boolean, tag?: [string, string]} = {}) {
+    const parse = (text: string) => parser(text, opts)
     return (text: string, elements: ReactElements) => {
         const nodes = useMemo(() => parse(text), [text.length, text])
         return createElement(Fragment, undefined, ...nodesToReactNodes(nodes, elements))

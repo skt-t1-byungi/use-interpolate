@@ -47,12 +47,12 @@ dom('using function value with nesting in nesting',
     <>a <span><>b<p>c</p>d</></span></>
 )
 
-dom('If you can not interpolate, replace with fragment.',
+dom('If can not interpolate, replace with fragment.',
     'a <0>b<1>c</1></0>', { 0: (children: any) => <span>{children}</span> },
     <>a <span><>b<>c</></></span></>
 )
 
-dom('If you can not interpolate, replace with null.',
+dom('If can not interpolate, replace with null.',
     'a <0>b<1 /></0>', { 0: (children: any) => <span>{children}</span> },
     <>a <span><>b{null}</></span></>
 )

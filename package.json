@@ -1,6 +1,6 @@
 {
     "name": "use-interpolate",
-    "description": "A react hook that interpolates html(text) into a component.",
+    "description": "A react hook that interpolates tag into a component.",
     "version": "0.0.1",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
@@ -18,7 +18,8 @@
         "hook",
         "interpolate",
         "interpolation",
-        "html"
+        "html",
+        "tag"
     ],
     "files": [
         "lib"

@@ -1,5 +1,5 @@
 # use-interpolate 📃
-> A react hook that interpolates html(text) into a component.
+> A react hook that interpolates tag into a component.
 
 [![npm](https://flat.badgen.net/npm/v/use-interpolate)](https://www.npmjs.com/package/use-interpolate)
 [![typescript](https://flat.badgen.net/badge/typescript/3.4.3/blue)](https://www.typescriptlang.org)
@@ -11,46 +11,74 @@ npm i use-interpolate
 ```
 
 ## Example
-### Basic
 ```jsx
 import useInterpolate from 'use-interpolate'
 
 function App(){
-    const reactElement = useInterpolate(
-        `<0>phone</0> :<1/> <2/> - <3/>`,
+    const vnode = useInterpolate(
+        '<0>name</0><1><2/></1>',
         {
-            0: (children) => <span>*{children}</span>,
-            1: <br/>,
-            2: <Input theme='red'/>,
-            3: <Input theme='blue'/>
+            0: <span/>,
+            1: (children) => <p> - {children}</p>,
+            2: <Input theme='blue'/>,
         }
     )
-    return reactElement
+    return <div>{vnode}</div>
 }
 ```
 output:
-```jsx
-<>
-    <span>*phone</span> :<br/> <Input theme='red'/> - <Input theme='blue'/>
-</>
+```html
+<div>
+    <span>name</span><p> - <Input theme='blue'/></p>
+</div>
 ```
+## API
+### useInterpolate(text, components)
+A react hook that interpolates tag into a component.
 
-### Change tag brackets.
+### createHook(options)
+Create a custom hook.
+
+#### options
+##### tag
+change tag bracket.
+
 ```jsx
 import {createHook} from 'use-interpolate'
 
 const useInterpolate = createHook({ tag: ['{', '}'] })
 
 function App(){
-    return useInterpolate('hello {0}world{/0}', {0: <span/>})
+    const vnode = useInterpolate(
+        'hello {0}world{/0}',
+        {
+            0: <span/>
+        }
+    )
+    return <div>{vnode}</div>
 }
 ```
 output:
-```jsx
-<>
+```html
+<div>
     hello <span>world</span>
-</>
+</div>
 ```
+##### strict
+Default value is `true`. If strict is false, the result is returned without error.
+```jsx
+const useInterpolate = createHook({ strict: false })
+function App(){
+    const vnode = useInterpolate('<a>Invalid<b>', {a: <p/>, b: <br/>}) // no error.
+    /* ... */
+}
+```
+output:
+```html
+<p>Invalid<br/></p>
+```
+## Related
+- [tag-name-parser](https://github.com/skt-t1-byungi/tag-name-parser) - A tag parser that does not support attributes. Lightweight and fast.
 
 ## License
 MIT
