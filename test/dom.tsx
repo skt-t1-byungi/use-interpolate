@@ -47,17 +47,12 @@ dom('using function value with nesting in nesting',
     <>a <span><>b<p>c</p>d</></span></>
 )
 
-dom('If you can not interpolate, use the node name.',
-    'a <0>b<b>c</b></0>', { 0: (children: any) => <span>{children}</span> },
-    <>a <span><>b<b>c</b></></span></>
+dom('If you can not interpolate, replace with fragment.',
+    'a <0>b<1>c</1></0>', { 0: (children: any) => <span>{children}</span> },
+    <>a <span><>b<>c</></></span></>
 )
 
-dom('If you can not interpolate, use the node name. #2 - self closed',
-    'a <0>b<br /></0>', { 0: (children: any) => <span>{children}</span> },
-    <>a <span><>b<br /></></span></>
-)
-
-dom('If you can not interpolate and the node name is abnormal, replace it with a fragment',
-    'a <0>b<aa /></0>', { 0: (children: any) => <span>{children}</span> },
-    <>a <span><>b<></></></span></>
+dom('If you can not interpolate, replace with null.',
+    'a <0>b<1 /></0>', { 0: (children: any) => <span>{children}</span> },
+    <>a <span><>b{null}</></span></>
 )

@@ -1,7 +1,5 @@
 import { ReactNode, useMemo, isValidElement, createElement, cloneElement, Fragment } from 'react'
 import tagNameParser = require('tag-name-parser')
-import htmlTags = require('html-tags')
-import includes = require('@skt-t1-byungi/array-includes')
 
 type TagNode = ReturnType<typeof tagNameParser>[number]
 type ReactElements = Record<string, ReactNode | ((children?: ReactNode) => ReactNode)>
@@ -29,7 +27,7 @@ function nodeToReactNode (node: TagNode, elements: ReactElements): ReactNode {
         if (typeof element === 'function') {
             return element()
         } else {
-            return isValidElement(element) ? element : createElement(nodeNameOrFragment(node.name))
+            return isValidElement(element) ? element : null
         }
     }
 
@@ -39,10 +37,6 @@ function nodeToReactNode (node: TagNode, elements: ReactElements): ReactNode {
     } else if (isValidElement(element)) {
         return cloneElement(element, undefined, ...children)
     } else {
-        return createElement(nodeNameOrFragment(node.name), undefined, ...children)
+        return createElement(Fragment, undefined, ...children)
     }
-}
-
-function nodeNameOrFragment (nodeName: string) {
-    return includes(htmlTags as string[], nodeName) ? nodeName : Fragment
 }
