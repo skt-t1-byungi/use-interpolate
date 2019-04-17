@@ -26,9 +26,9 @@ function App(){
 ```
 output:
 ```jsx
-<>
+(<>
     <span>*phone</span> :<br/> <Input theme='red'/> - <Input theme='blue'/>
-</>
+</>)
 ```
 
 ### Change tag brackets.
@@ -43,7 +43,7 @@ function App(){
 ```
 output:
 ```jsx
-<>hello <span>world</span></>
+(<>hello <span>world</span></>)
 ```
 
 ## License
