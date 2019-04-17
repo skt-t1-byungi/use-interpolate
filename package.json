@@ -1,0 +1,56 @@
+{
+    "name": "use-interpolate",
+    "description": "A hook that interpolates html(text) into a component.",
+    "version": "0.0.0",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "license": "MIT",
+    "repository": "https://github.com/skt-t1-byungi/use-interpolate.git",
+    "author": "skt-t1-byungi <tiniwz@gmail.com>",
+    "scripts": {
+        "test": "ava",
+        "clean": "rm -rf lib",
+        "build": "npm run clean && tsc",
+        "prepublishOnly": "npm run test && npm run build"
+    },
+    "keywords": [
+        "react",
+        "hook",
+        "interpolate",
+        "interpolation",
+        "html"
+    ],
+    "files": [
+        "lib"
+    ],
+    "devDependencies": {
+        "@types/node": "^11.13.4",
+        "@types/react": "^16.8.13",
+        "ava": "^1.4.1",
+        "browser-env": "^3.2.6",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "react-hooks-testing-library": "^0.4.1",
+        "ts-node": "^8.1.0",
+        "tslint": "^5.16.0",
+        "tslint-config-byungi": "^0.1.1",
+        "typescript": "^3.4.3"
+    },
+    "dependencies": {
+        "@skt-t1-byungi/array-includes": "^0.1.1",
+        "html-tags": "^3.0.0",
+        "tag-name-parser": "^1.0.1"
+    },
+    "peerDependencies": {
+        "react": "^16.8.6"
+    },
+    "ava": {
+        "compileEnhancements": false,
+        "extensions": [
+            "tsx"
+        ],
+        "require": [
+            "ts-node/register"
+        ]
+    }
+}
