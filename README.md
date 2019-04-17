@@ -15,7 +15,7 @@ function App(){
     const reactElement = useInterpolate(
         `<0>phone</0> :<1/> <2/> - <3/>`,
         {
-            0: children => <span>*{children}</span>,
+            0: (children) => <span>*{children}</span>,
             1: <br/>,
             2: <Input theme='red'/>,
             3: <Input theme='blue'/>
@@ -26,9 +26,9 @@ function App(){
 ```
 output:
 ```jsx
-(<>
+<>
     <span>*phone</span> :<br/> <Input theme='red'/> - <Input theme='blue'/>
-</>)
+</>
 ```
 
 ### Change tag brackets.
@@ -43,7 +43,7 @@ function App(){
 ```
 output:
 ```jsx
-(<>hello <span>world</span></>)
+<>hello <span>world</span></>
 ```
 
 ## License
