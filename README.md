@@ -1,5 +1,9 @@
-# use-interpolate
-A react hook that interpolates html(text) into a component.
+# use-interpolate 📃
+> A react hook that interpolates html(text) into a component.
+
+[![npm](https://flat.badgen.net/npm/v/use-interpolate)](https://www.npmjs.com/package/use-waiterinterpolate)
+[![typescript](https://flat.badgen.net/badge/typescript/3.4.3/blue)](https://www.typescriptlang.org)
+[![license](https://flat.badgen.net/github/license/skt-t1-byungi/use-interpolate)](https://github.com/skt-t1-byungi/use-interpolate/blob/master/LICENSE)
 
 ## Install
 ```sh
@@ -35,15 +39,17 @@ output:
 ```jsx
 import {createHook} from 'use-interpolate'
 
-const useInterpolate = createHook({tag: ['[', ']']})
+const useInterpolate = createHook({ tag: ['{', '}'] })
 
 function App(){
-    return useInterpolate('hello [0]world[/0]', {0: <span/>})
+    return useInterpolate('hello {0}world{/0}', {0: <span/>})
 }
 ```
 output:
 ```jsx
-<>hello <span>world</span></>
+<>
+    hello <span>world</span>
+</>
 ```
 
 ## License
