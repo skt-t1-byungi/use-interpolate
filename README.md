@@ -44,7 +44,7 @@ Create a custom interpolate hook.
 change tag bracket.
 
 ```jsx
-import {createHook} from 'use-interpolate'
+import { createHook } from 'use-interpolate'
 
 const useInterpolate = createHook({ tag: ['{', '}'] })
 
@@ -79,6 +79,34 @@ output:
 ```html
 <p>Invalid<br/></p>
 ```
+
+### interpolate(text, components)
+In a class component, an interpolation function is used instead of a hook.
+However, this does not support caching for parsed text.
+
+```jsx
+import { interpolate } from 'use-interpolate'
+
+class App extends React.Component{
+    render(){
+        const vnode = interpolate(`hello <0/> john!`, {0: <br/>})
+        /* ... */
+    }
+}
+```
+
+### createInterpolate(options)
+Create a custom interpolate function.
+
+```js
+import { createInterpolate } from 'use-interpolate'
+
+const interpolate = createInterpolate({ strict:false, tag: ['{', '}'] })
+```
+
+#### options
+Same as createHook.
+
 ## Related
 - [tag-name-parser](https://github.com/skt-t1-byungi/tag-name-parser) - A tag parser that does not support attributes. Lightweight and fast.
 

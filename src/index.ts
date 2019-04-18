@@ -3,12 +3,20 @@ import parser = require('tag-name-parser')
 
 type TagNode = ReturnType<typeof parser>[number]
 type ReactElements = Record<string,ReactNode | ((children?: ReactNode) => ReactNode)>
+interface ParserOptions {strict?: boolean, tag?: [string, string]}
+
+export const interpolate = createInterpolate()
+
+export function createInterpolate (opts: ParserOptions = {}) {
+    const parse = (text: string) => parser(text, opts)
+    return (text: string, elements: ReactElements) => ensureOneNode(nodesToReactNodes(parse(text), elements))
+}
 
 export const useInterpolate = createHook()
 
 export default useInterpolate
 
-export function createHook (opts: {strict?: boolean, tag?: [string, string]} = {}) {
+export function createHook (opts: ParserOptions = {}) {
     const parse = (text: string) => parser(text, opts)
     return (text: string, elements: ReactElements) => {
         const parsed = useMemo(() => parse(text), [text])
