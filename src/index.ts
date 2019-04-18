@@ -5,24 +5,25 @@ type TagNode = ReturnType<typeof parser>[number]
 type ReactElements = Record<string,ReactNode | ((children?: ReactNode) => ReactNode)>
 interface ParserOptions {strict?: boolean, tag?: [string, string]}
 
-export const interpolate = createInterpolate()
-
-export function createInterpolate (opts: ParserOptions = {}) {
-    const parse = (text: string) => parser(text, opts)
-    return (text: string, elements: ReactElements) => ensureOneNode(nodesToReactNodes(parse(text), elements))
+const parserWithOpts = (opts: ParserOptions = {}, text: string) => parser(text, opts)
+const parserWithOptsAndMemo = (opts: ParserOptions = {}, text: string) => useMemo(() => parserWithOpts(opts, text), [text])
+const parse = (parser: Function) => (opts: ParserOptions = {}) => {
+    return (text: string, elements: ReactElements) => {
+        const parsed = parser(opts, text)
+        const nodes = nodesToReactNodes(parsed, elements)
+        return ensureOneNode(nodes)
+    }
 }
+
+export const createInterpolate = parse(parserWithOpts)
+
+export const createHook = parse(parserWithOptsAndMemo)
+
+export const interpolate = createInterpolate()
 
 export const useInterpolate = createHook()
 
 export default useInterpolate
-
-export function createHook (opts: ParserOptions = {}) {
-    const parse = (text: string) => parser(text, opts)
-    return (text: string, elements: ReactElements) => {
-        const parsed = useMemo(() => parse(text), [text])
-        return ensureOneNode(nodesToReactNodes(parsed, elements))
-    }
-}
 
 function ensureOneNode (nodes: ReactNode[]) {
     return nodes.length === 1 ? nodes[0] : createElement(Fragment, undefined, ...nodes)
