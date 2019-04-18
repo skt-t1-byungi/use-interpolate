@@ -14,7 +14,7 @@ const dom = (desc: string, text: string, components: any, expected: any) => {
 
 dom('string',
     'test', {},
-    <>test</>
+    'test'
 )
 
 dom('wrapped',

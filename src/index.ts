@@ -2,7 +2,7 @@ import { ReactNode, useMemo, isValidElement, createElement, cloneElement, Fragme
 import parser = require('tag-name-parser')
 
 type TagNode = ReturnType<typeof parser>[number]
-type ReactElements = Record<string, ReactNode | ((children?: ReactNode) => ReactNode)>
+type ReactElements = Record<string,ReactNode | ((children?: ReactNode) => ReactNode)>
 
 export const useInterpolate = createHook()
 
@@ -11,9 +11,13 @@ export default useInterpolate
 export function createHook (opts: {strict?: boolean, tag?: [string, string]} = {}) {
     const parse = (text: string) => parser(text, opts)
     return (text: string, elements: ReactElements) => {
-        const nodes = useMemo(() => parse(text), [text.length, text])
-        return createElement(Fragment, undefined, ...nodesToReactNodes(nodes, elements))
+        const parsed = useMemo(() => parse(text), [text])
+        return ensureOneNode(nodesToReactNodes(parsed, elements))
     }
+}
+
+function ensureOneNode (nodes: ReactNode[]) {
+    return nodes.length === 1 ? nodes[0] : createElement(Fragment, undefined, ...nodes)
 }
 
 function nodesToReactNodes (nodes: TagNode[], elements: ReactElements): ReactNode[] {
@@ -34,7 +38,7 @@ function nodeToReactNode (node: TagNode, elements: ReactElements): ReactNode {
 
     const children = nodesToReactNodes(node.children, elements)
     if (typeof element === 'function') {
-        return element(children.length === 1 ? children[0] : createElement(Fragment, undefined, ...children))
+        return element(ensureOneNode(children))
     } else if (isValidElement(element)) {
         return cloneElement(element, undefined, ...children)
     } else {

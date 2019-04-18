@@ -37,7 +37,7 @@ output:
 A react hook that interpolates tag into a component.
 
 ### createHook(options)
-Create a custom hook.
+Create a custom interpolate hook.
 
 #### options
 ##### tag
@@ -65,7 +65,8 @@ output:
 </div>
 ```
 ##### strict
-Default value is `true`. If strict is false, the result is returned without error.
+Default is `true`. If false, no error occurs.
+
 ```jsx
 const useInterpolate = createHook({ strict: false })
 
