@@ -6,8 +6,8 @@ type ReactElements = Record<string,ReactNode | ((children?: ReactNode) => ReactN
 type Parser = (text: string, opts?: ParserOptions) => TagNode[]
 interface ParserOptions {strict?: boolean, tag?: [string, string]}
 
-const parserWithOpts = (text: string, opts: ParserOptions = {}) => parser(text, opts)
-const parserWithOptsAndMemo = (text: string, opts: ParserOptions = {}) => useMemo(() => parserWithOpts(text, opts), [text])
+const parserWithMemo = (text: string, opts: ParserOptions = {}) => useMemo(() => parser(text, opts), [text])
+
 const createParserCreator = (parser: Parser) => (opts: ParserOptions = {}) => {
     return (text: string, elements: ReactElements) => {
         const parsed = parser(text, opts)
@@ -16,9 +16,9 @@ const createParserCreator = (parser: Parser) => (opts: ParserOptions = {}) => {
     }
 }
 
-export const createInterpolate = createParserCreator(parserWithOpts)
+export const createInterpolate = createParserCreator(parser)
 
-export const createHook = createParserCreator(parserWithOptsAndMemo)
+export const createHook = createParserCreator(parserWithMemo)
 
 export const interpolate = createInterpolate()
 
