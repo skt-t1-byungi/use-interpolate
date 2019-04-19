@@ -8,13 +8,13 @@ interface ParserOptions {strict?: boolean, tag?: [string, string]}
 
 const parserWithMemoHook = (text: string, opts: ParserOptions = {}) => useMemo(() => parser(text, opts), [text])
 
-const createParserCreator = (parser: Parser) => (opts: ParserOptions = {}) => (text: string, elements: ReactElements) => {
+const createInterpolateCreator = (parser: Parser) => (opts: ParserOptions = {}) => (text: string, elements: ReactElements) => {
     return ensureOneNode(nodesToReactNodes(parser(text, opts), elements))
 }
 
-export const createInterpolate = createParserCreator(parser)
+export const createInterpolate = createInterpolateCreator(parser)
 
-export const createHook = createParserCreator(parserWithMemoHook)
+export const createHook = createInterpolateCreator(parserWithMemoHook)
 
 export const interpolate = createInterpolate()
 
