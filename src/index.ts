@@ -3,14 +3,14 @@ import parser = require('tag-name-parser')
 
 type TagNode = ReturnType<typeof parser>[number]
 type ReactElements = Record<string,ReactNode | ((children?: ReactNode) => ReactNode)>
-type Parser = (opts: ParserOptions | undefined, text: string) => TagNode[]
+type Parser = (text: string, opts?: ParserOptions) => TagNode[]
 interface ParserOptions {strict?: boolean, tag?: [string, string]}
 
-const parserWithOpts = (opts: ParserOptions = {}, text: string) => parser(text, opts)
-const parserWithOptsAndMemo = (opts: ParserOptions = {}, text: string) => useMemo(() => parserWithOpts(opts, text), [text])
+const parserWithOpts = (text: string, opts: ParserOptions = {}) => parser(text, opts)
+const parserWithOptsAndMemo = (text: string, opts: ParserOptions = {}) => useMemo(() => parserWithOpts(text, opts), [text])
 const createParserCreator = (parser: Parser) => (opts: ParserOptions = {}) => {
     return (text: string, elements: ReactElements) => {
-        const parsed = parser(opts, text)
+        const parsed = parser(text, opts)
         const nodes = nodesToReactNodes(parsed, elements)
         return ensureOneNode(nodes)
     }
