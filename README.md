@@ -1,5 +1,5 @@
 # use-interpolate 📃
-> A react hook that interpolates tag into a component.
+> A react hook that interpolates tag to a component.
 
 [![npm](https://flat.badgen.net/npm/v/use-interpolate)](https://www.npmjs.com/package/use-interpolate)
 [![typescript](https://flat.badgen.net/badge/typescript/3.4.3/blue)](https://www.typescriptlang.org)
@@ -15,7 +15,7 @@ npm i use-interpolate
 import useInterpolate from 'use-interpolate'
 
 function App(){
-    const vnode = useInterpolate(
+    const element = useInterpolate(
         '<0>name</0><1><2/></1>',
         {
             0: <span/>,
@@ -23,7 +23,7 @@ function App(){
             2: <Input theme='blue'/>,
         }
     )
-    return <div>{vnode}</div>
+    return <div>{element}</div>
 }
 ```
 output:
@@ -34,10 +34,10 @@ output:
 ```
 ## API
 ### useInterpolate(text, components)
-A react hook that interpolates tag into a component.
+A react hook that interpolates tag to a component.
 
-### createHook(options)
-Create a custom interpolate hook.
+### createHook([options])
+Create a interpolate hook.
 
 #### options
 ##### tag
@@ -49,13 +49,13 @@ import { createHook } from 'use-interpolate'
 const useInterpolate = createHook({ tag: ['{', '}'] })
 
 function App(){
-    const vnode = useInterpolate(
+    const element = useInterpolate(
         'hello {0}world{/0}',
         {
             0: <span/>
         }
     )
-    return <div>{vnode}</div>
+    return <div>{element}</div>
 }
 ```
 output:
@@ -71,7 +71,7 @@ Default is `true`. If false, no error occurs.
 const useInterpolate = createHook({ strict: false })
 
 function App(){
-    const vnode = useInterpolate('<a>Invalid<b>', {a: <p/>, b: <br/>}) // no error.
+    const element = useInterpolate('<a>Invalid<b>', {a: <p/>, b: <br/>}) // no error.
     /* ... */
 }
 ```
@@ -81,7 +81,7 @@ output:
 ```
 
 ### interpolate(text, components)
-In a class component, an interpolation function is used instead of a hook.
+In a class component, an `interpolate` function is used instead of a hook.
 However, this does not support caching for parsed text.
 
 ```jsx
@@ -95,8 +95,8 @@ class App extends React.Component{
 }
 ```
 
-### createInterpolate(options)
-Create a custom interpolate function.
+### createInterpolate([options])
+Create a interpolate function.
 
 ```js
 import { createInterpolate } from 'use-interpolate'
@@ -105,7 +105,7 @@ const interpolate = createInterpolate({ strict:false, tag: ['{', '}'] })
 ```
 
 #### options
-Same as createHook.
+Same as [`createHook` options](#options).
 
 ## Related
 - [tag-name-parser](https://github.com/skt-t1-byungi/tag-name-parser) - A tag parser that does not support attributes. Lightweight and fast.
