@@ -1,6 +1,6 @@
 import * as React from 'react'
 import test from 'ava'
-import { renderHook } from 'react-hooks-testing-library'
+import { renderHook } from '@testing-library/react-hooks'
 import useInterpolate, { interpolate } from '../src/index'
 
 import './_browserEnv'
