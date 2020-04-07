@@ -107,8 +107,5 @@ const interpolate = createInterpolate({ strict:false, tag: ['{', '}'] })
 #### options
 Same as [`createHook` options](#options).
 
-## Related
-- [tag-name-parser](https://github.com/skt-t1-byungi/tag-name-parser) - A tag parser that does not support attributes. Lightweight and fast.
-
 ## License
 MIT
