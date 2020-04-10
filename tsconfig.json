@@ -2,13 +2,12 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
-        "lib": [],
         "jsx": "react",
         "declaration": true,
-        "outDir": "./lib",
+        "outDir": "./dist",
         "strict": true
     },
-    "exclude": [
-        "test/"
+    "include": [
+        "./src"
     ]
 }
