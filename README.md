@@ -1,5 +1,5 @@
 # use-interpolate 📃
-> A react hook that interpolates tag to a component.
+> A react hook that interpolates markup tags into components
 
 [![npm](https://flat.badgen.net/npm/v/use-interpolate)](https://www.npmjs.com/package/use-interpolate)
 [![typescript](https://flat.badgen.net/badge/typescript/3.4.3/blue)](https://www.typescriptlang.org)
@@ -14,98 +14,54 @@ npm i use-interpolate
 ```jsx
 import useInterpolate from 'use-interpolate'
 
-function App(){
-    const element = useInterpolate(
-        '<0>name</0><1><2/></1>',
-        {
-            0: <span/>,
-            1: (children) => <p> - {children}</p>,
-            2: <Input theme='blue'/>,
-        }
-    )
-    return <div>{element}</div>
+function App () {
+    const render = useInterpolate('<wrap>My name is <name /> and I am <age /> years old.</wrap>')
+
+    const components = {
+        wrap: children => <Content>{children}</Content>,
+        name: <input type="text" />,
+        age: <input type="number" />
+    }
+
+    return <div>{render(components)}</div>
 }
 ```
-output:
 ```html
 <div>
-    <span>name</span><p> - <Input theme='blue'/></p>
+    <Content>
+        My name is <input type="text" /> and I am <input type="number" /> years old.
+    </Content>
 </div>
 ```
 ## API
-### useInterpolate(text, components)
-A react hook that interpolates tag to a component.
-
-### createHook([options])
-Create a interpolate hook.
+### useInterpolate(string, options?)
+This hook parses the given string and returns a [`render`](#render(components)) function that interpolates markup tags into components.
 
 #### options
-##### tag
-change tag bracket.
+##### prefix
+This is a tag prefix option. The default is `<`.
 
-```jsx
-import { createHook } from 'use-interpolate'
+##### suffix
+This is a tag suffix option. The default is `>`.
 
-const useInterpolate = createHook({ tag: ['{', '}'] })
-
-function App(){
-    const element = useInterpolate(
-        'hello {0}world{/0}',
-        {
-            0: <span/>
-        }
-    )
-    return <div>{element}</div>
-}
-```
-output:
-```html
-<div>
-    hello <span>world</span>
-</div>
-```
 ##### strict
-Default is `true`. If false, no error occurs.
+This is a strict option to parse. The default is `true`.
+
+### render(components?)
+This function interpolates markup tags to the components from the parsed result.
 
 ```jsx
-const useInterpolate = createHook({ strict: false })
+const render = useInterpolate('hello <0 /> word')
 
-function App(){
-    const element = useInterpolate('<a>Invalid<b>', {a: <p/>, b: <br/>}) // no error.
-    /* ... */
-}
-```
-output:
-```html
-<p>Invalid<br/></p>
+return <div>{render({ 0: <br/> })}</div> // => <div>hello <br /> word</div>
 ```
 
-### interpolate(text, components)
-In a class component, an `interpolate` function is used instead of a hook.
-However, this does not support caching for parsed text.
-
+There is a way to interpolate using functions.
 ```jsx
-import { interpolate } from 'use-interpolate'
+const render = useInterpolate('<0>hello word</0>')
 
-class App extends React.Component{
-    render(){
-        const vnode = interpolate(`hello <0/> john!`, {0: <br/>})
-        /* ... */
-    }
-}
+return <div>{render({ 0: children => <p>{children}</p> })}</div> // => <div><p>hello word</p></div>
 ```
-
-### createInterpolate([options])
-Create a interpolate function.
-
-```js
-import { createInterpolate } from 'use-interpolate'
-
-const interpolate = createInterpolate({ strict:false, tag: ['{', '}'] })
-```
-
-#### options
-Same as [`createHook` options](#options).
 
 ## License
 MIT
