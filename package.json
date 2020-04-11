@@ -2,14 +2,14 @@
     "name": "use-interpolate",
     "description": "A react hook that interpolates markup tags into components",
     "version": "1.0.0",
-    "main": "lib/index.js",
-    "types": "lib/index.d.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "license": "MIT",
     "repository": "https://github.com/skt-t1-byungi/use-interpolate.git",
     "author": "skt-t1-byungi <tiniwz@gmail.com>",
     "scripts": {
         "test": "jest",
-        "clean": "rm -rf lib",
+        "clean": "rm -rf dist",
         "build": "npm run clean && tsc",
         "prepublishOnly": "npm run test && npm run build"
     },
@@ -23,7 +23,7 @@
         "tag"
     ],
     "files": [
-        "lib"
+        "dist"
     ],
     "devDependencies": {
         "@testing-library/react-hooks": "^3.2.1",
@@ -43,5 +43,8 @@
     },
     "eslintConfig": {
         "extends": "byungi/typescript"
-    }
+    },
+    "eslintIgnore": [
+        "dist"
+    ]
 }
