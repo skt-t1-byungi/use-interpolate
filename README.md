@@ -53,14 +53,14 @@ This function interpolates markup tags to the components from the parsed result.
 ```jsx
 const render = useInterpolate('hello <0 /> word')
 
-return <div>{render({ 0: <br/> })}</div> // => <div>hello <br /> word</div>
+return <>{render({ 0: <br/> })}</> // => <>hello <br /> word</>
 ```
 
 There is a way to interpolate using functions.
 ```jsx
 const render = useInterpolate('<0>hello word</0>')
 
-return <div>{render({ 0: children => <p>{children}</p> })}</div> // => <div><p>hello word</p></div>
+return <>{render({ 0: children => (<p>{children}</p>) })}</> // => <><p>hello word</p></>
 ```
 
 ## License
