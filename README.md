@@ -17,7 +17,7 @@ function App () {
     const render = useInterpolate('<wrap>My name is <name /> and I am <age /> years old.</wrap>')
 
     const components = {
-        wrap: children => <Content>{children}</Content>,
+        wrap: children => (<Content>{children}</Content>),
         name: <input type="text" />,
         age: <input type="number" />
     }
@@ -52,14 +52,14 @@ This function interpolates markup tags to the components from the parsed result.
 ```jsx
 const render = useInterpolate('hello <0 /> word')
 
-return <>{render({ 0: <br/> })}</> // => <>hello <br /> word</>
+return <div>{render({ 0: <br/> })}</div> // => <div>hello <br /> word</div>
 ```
 
 There is a way to interpolate using functions.
 ```jsx
 const render = useInterpolate('<0>hello word</0>')
 
-return <>{render({ 0: children => (<p>{children}</p>) })}</> // => <><p>hello word</p></>
+return render({ 0: children => (<p>{children}</p>) }) // => <p>hello word</p>
 ```
 
 ## License
