@@ -35,7 +35,7 @@ function App () {
 ```
 ## API
 ### useInterpolate(string, options?)
-This hook parses the given string and returns a [`render`](#render(components)) function that interpolates markup tags into components.
+This hook parses the given string and returns a [`render`](#rendercomponents) function that interpolates markup tags into components.
 
 #### options
 ##### prefix
