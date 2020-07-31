@@ -4,11 +4,9 @@
         "module": "commonjs",
         "lib": ["ESNext"],
         "jsx": "react",
-        "declaration": true,
-        "outDir": "./dist",
         "strict": true
     },
     "include": [
-        "./src/index.ts"
+        "./src"
     ]
 }
